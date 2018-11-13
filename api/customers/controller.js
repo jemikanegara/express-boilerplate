@@ -1,20 +1,20 @@
 const models = require("../models");
 
 module.exports.getAll = (req, res) => {
-  models.products
+  models.customers
     .findAll({ limit: 10 })
-    .then(products => {
-      if (products === []) {
+    .then(customers => {
+      if (customers === []) {
         res.send("data not found");
       } else {
-        res.send(products);
+        res.send(customers);
       }
     })
     .catch(error => res.send(error));
 };
 
 module.exports.post = (req, res) => {
-  models.products
+  models.customers
     .create(req.body)
     .then(product =>
       res.send({
@@ -26,7 +26,7 @@ module.exports.post = (req, res) => {
 };
 
 module.exports.delete = (req, res) => {
-  models.products
+  models.customers
     .findOne({ where: { id: req.params.id } })
     .then(product =>
       product
@@ -43,7 +43,7 @@ module.exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-  models.products
+  models.customers
     .destroy({
       where: {},
       truncate: true
@@ -56,21 +56,21 @@ exports.deleteAll = (req, res) => {
 
 exports.search = (req, res) => {
   console.log(req.query);
-  models.products
+  models.customers
     .findAll({ where: req.query })
-    .then(products => res.send(products))
+    .then(customers => res.send(customers))
     .catch(err => res.send(err));
 };
 
 // module.exports.deleteAll = (req, res) => {
-//   models.products
+//   models.customers
 //     .findAll({ limit: 10 })
 //     .then(product =>
 //       product
 //         .destroy()
 //         .then(product =>
 //           res.send({
-//             message: `delete all products success`
+//             message: `delete all customers success`
 //           })
 //         )
 //         .catch(err => res.send(err))
@@ -79,20 +79,20 @@ exports.search = (req, res) => {
 // };
 
 module.exports.update = (req, res) => {
-  models.products
+  models.customers
     .update(req.body, { where: { id: req.params.id } })
     .then(res => res.send(res))
     .catch(err => res.send(err));
 };
 
 // module.exports.search = (req, res) => {
-//   models.products
+//   models.customers
 //     .findAll({ where: { name: req.query.name } })
-//     .then(products => {
-//       if (products === []) {
+//     .then(customers => {
+//       if (customers === []) {
 //         res.send("data not found");
 //       } else {
-//         res.send(products);
+//         res.send(customers);
 //       }
 //     })
 //     .catch(error => res.send(error));
